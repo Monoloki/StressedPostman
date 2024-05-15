@@ -8,7 +8,7 @@ public class Parcel : MonoBehaviour
     [SerializeField] private new Renderer renderer;
 
     private void Start() {
-        symbol = (ISymbol)Random.Range(0, 5);
+        symbol = (ISymbol)Random.Range(0, 6);
         renderer.material = GameManager.instance.GetSymbolMaterial(symbol);
     }
 }
