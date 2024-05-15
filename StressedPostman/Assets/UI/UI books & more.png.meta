@@ -2675,10 +2675,10 @@ TextureImporter:
       name: UI books & more_122
       rect:
         serializedVersion: 2
-        x: 160
-        y: 128
-        width: 256
-        height: 96
+        x: 352
+        y: 192
+        width: 32
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5086,6 +5086,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: UI books & more_237
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 193
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 518ec3d098ad2d2438e43c30bc2bb69a
+      internalID: 1470676020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -5251,6 +5272,7 @@ TextureImporter:
       UI books & more_234: -1817902098
       UI books & more_235: -1649167110
       UI books & more_236: 383952901
+      UI books & more_237: 1470676020
       UI books & more_24: -2121209638
       UI books & more_25: 1837789799
       UI books & more_26: 1234315607

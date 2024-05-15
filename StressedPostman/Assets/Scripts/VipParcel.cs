@@ -8,7 +8,6 @@ public class VipParcel : MonoBehaviour {
     [SerializeField] private new Renderer renderer;
 
     private void Start() {
-        Debug.Log("kurwa");
         symbol = (ISymbol)Random.Range(0, 5);
         renderer.material = GameManager.instance.GetSymbolMaterial(symbol);
         StartCoroutine(DestroyObjectAfterTime());
@@ -16,6 +15,7 @@ public class VipParcel : MonoBehaviour {
 
     IEnumerator DestroyObjectAfterTime() {
         yield return new WaitForSeconds(delay);
+        MusicController.instance.SpawnSound(transform, ISound.wrong);
         Destroy(gameObject);
         GameManager.instance.VipParcelExpired();
     }

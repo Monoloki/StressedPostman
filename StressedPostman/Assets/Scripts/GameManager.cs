@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager> {
@@ -9,17 +10,22 @@ public class GameManager : Singleton<GameManager> {
 
     private int _points = 0;
     private float _timeLeft = 90f; // in seconds
-    private bool gameActive = false;
+    public bool gameActive = false;
 
     [SerializeField] private Material[] symbolMaterials;
+    [SerializeField] private GameObject summaryScreen;
+
+    [SerializeField] private Spawner spawner;
+    [SerializeField] private Boss bossSpawner;
+    [SerializeField] private Text summaryPointsLabel;
 
 
     public Material GetSymbolMaterial(ISymbol symbol) {
         return symbolMaterials[(int)symbol];
     }
 
-    private void Start() {
-        StartGame();
+    public void RestartGame() {
+        SceneManager.LoadScene(0);
     }
 
     public float timeLeft {
@@ -53,17 +59,25 @@ public class GameManager : Singleton<GameManager> {
 
     public void VipParcledPlacedWrongly() {
         timeLeft -= 10;
+        if (timeLeft <= 0) {
+            timeLeft = 0;
+        }
     }
 
     public void VipParcelExpired() {
         points -= 30;
         timeLeft -= 30;
+        if (timeLeft <= 0) {
+            timeLeft = 0;
+        }
     }
 
     public void StartGame() {
         timeLeft = 90f;
         gameActive = true;
         StartCoroutine(RunStopwatch());
+        bossSpawner.StartBossSpawner();
+        spawner.StartRegularSpawner();
     }
 
     public void StopGame() {
@@ -76,8 +90,8 @@ public class GameManager : Singleton<GameManager> {
 
             if (timeLeft <= 0) {
                 timeLeft = 0;
-                gameActive = false;
                 EndGame();
+                gameActive = false;
             }
 
             int minutes = Mathf.FloorToInt(timeLeft / 60F);
@@ -89,7 +103,9 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public void EndGame() {
-        Debug.Log("End of Game");
+        gameActive = false;
+        summaryPointsLabel.text = $"Points: {points}";
+        summaryScreen.SetActive(true);
     }
 
 }

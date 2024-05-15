@@ -11,10 +11,12 @@ public class Bucket : MonoBehaviour {
 
             if (symbol == parcel.symbol) {
                 GameManager.instance.ParcledPlacedCorrectly();
-                Destroy(other.gameObject);
+                MusicController.instance.SpawnSound(other.transform, ISound.correct);
+                Destroy(other.gameObject);         
             }
             else {
                 GameManager.instance.ParcelPlacedWrongly();
+                MusicController.instance.SpawnSound(other.transform, ISound.wrong);
             }
 
             
@@ -24,10 +26,12 @@ public class Bucket : MonoBehaviour {
 
             if (symbol == parcel.symbol) {
                 GameManager.instance.VipParcledPlacedCorrectly();
+                MusicController.instance.SpawnSound(other.transform, ISound.correct);
                 Destroy(other.gameObject);
             }
             else {
                 GameManager.instance.VipParcledPlacedWrongly();
+                MusicController.instance.SpawnSound(other.transform, ISound.wrong);
             }
         } 
     }

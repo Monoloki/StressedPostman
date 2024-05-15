@@ -10,13 +10,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform holdingSlot;
     [SerializeField] private Transform closestObject;
     [SerializeField] private Transform holdingParcel;
-    [SerializeField]  private List<Transform> objectsInRange = new List<Transform>();
+    [SerializeField] private List<Transform> objectsInRange = new List<Transform>();
+    [SerializeField] private Animator animatior;
     
     void Update() {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
         Vector3 move = new Vector3(moveX, 0, moveZ);
         MovePlayer(move);
+
+        if (move.magnitude > 0.1) {
+            animatior.Play("Run",0);
+        }
+        else {
+            animatior.Play("Idle",0);
+        }
+
+        if (moveX > 0) {
+            animatior.gameObject.transform.localScale = new Vector3(1.101079f, 1.101079f, 2.202158f);
+        }
+        else {
+            animatior.gameObject.transform.localScale = new Vector3(-1.101079f, 1.101079f, 2.202158f);
+        }
+
         UpdateClosestObject();
 
         if (Input.GetKeyDown("e")) {
@@ -33,7 +49,9 @@ public class PlayerController : MonoBehaviour
         holdingParcel = closestObject;
         holdingParcel.transform.parent = transform;
         closestObject.GetComponent<Rigidbody>().isKinematic = true;
+        holdingParcel.rotation = Quaternion.identity;
         holdingParcel.position = holdingSlot.position;
+        MusicController.instance.SpawnSound(transform, ISound.throwing);
     }
 
     private void Drop() {
@@ -44,7 +62,6 @@ public class PlayerController : MonoBehaviour
         if (holdingParcel == closestObject) {
             closestObject = null;
         }
-
         holdingParcel = null;
     }
 
